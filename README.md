@@ -1,5 +1,5 @@
 # Marching Cubes using Tetrahedrons Method
-## [Goal] An implementation Marching Cubes Tetrahedrons using OpenCV in C++
+## [Goal] Overcome an ambiguity problem of basic Marching Cubes algorithm 
 - Example pointcloud 
    <table>
       <tr>
