@@ -48,8 +48,8 @@ Follow this repo &rarr; [Marching Cubes](https://github.com/SungJaeShin/Marching
 Clone the repository and build and run simultaneously:
 ```
    $ cd ${workspace}
-   $ git clone https://github.com/SungJaeShin/Marching_cubes_tetrahedrons.git
-   $ cd Marching_cubes_tetrahedrons
+   $ git clone https://github.com/SungJaeShin/Marching_tetrahedrons.git
+   $ cd Marching_tetrahedrons
    $ sh start.sh
 ```
 
