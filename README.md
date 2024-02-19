@@ -126,9 +126,49 @@ g++ ./src/main.cpp -L /usr/local/include/opencv2 -lopencv_viz -lopencv_highgui -
       </tr>
   </table>
 
+
+Voxel Size Calculation Time: 
+
+
 ## 6. Results
+- Time consumption
+   - Example PLY: `sphere.txt` (# of pointcloud: 16926)
+      <table>
+         <tr>
+            <td> NUM VOXEL </td>
+            <td> # of triangles </td>
+            <td> Pointcloud read time (ms) </td>
+            <td> Voxel calculation (ms) </td>
+            <td> Marching Tetrahedrons (ms) </td>
+         </tr> 
+         <tr>
+            <td> 200 </td>
+            <td> - </td>
+            <td> 10.3349 ms </td>
+            <td> 0.640087 ms </td>
+            <td> - </td>
+         </tr>
+      </table>
 
-
+- Marching cube results
+   <table>
+      <tr>
+         <td> ISOVALUE </td>
+         <td> 0.5 </td>
+      </tr> 
+      <tr>
+         <td> <img src="./results/sphere_density_0.5.png"/> </td>
+         <td> <img src="./results/sphere_density_0.5_2.png"/> </td>
+      </tr> 
+      <tr>
+         <td> ISOVALUE </td>
+         <td> 1 </td>
+      </tr> 
+      <tr>
+         <td> <img src="./results/sphere_density_1.png"/> </td>
+         <td> <img src="./results/sphere_density_1_2.png"/> </td>
+      </tr> 
+   </table>
 
 ## 7. References
 [1] [https://github.com/SungJaeShin/Marching_cubes.git](https://github.com/SungJaeShin/Marching_cubes.git) \
