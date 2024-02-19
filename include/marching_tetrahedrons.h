@@ -73,14 +73,14 @@ void init_voxel_vertices(PointCloud pointcloud, Voxel &voxel,
                          float cur_x, float cur_y, float cur_z,
                          float diff_x, float diff_y, float diff_z)
 {
-    cv::Point3f v0(cur_x,          cur_y,          cur_z);
-    cv::Point3f v1(cur_x + diff_x, cur_y,          cur_z);
-    cv::Point3f v2(cur_x + diff_x, cur_y,          cur_z + diff_z);
-    cv::Point3f v3(cur_x,          cur_y,          cur_z + diff_z);
-    cv::Point3f v4(cur_x,          cur_y + diff_y, cur_z);
-    cv::Point3f v5(cur_x + diff_x, cur_y + diff_y, cur_z);
-    cv::Point3f v6(cur_x + diff_x, cur_y + diff_y, cur_z + diff_z);
-    cv::Point3f v7(cur_x,          cur_y + diff_y, cur_z + diff_z);
+    cv::Point3f v0(cur_x,          cur_y,          cur_z + diff_z);
+    cv::Point3f v1(cur_x + diff_x, cur_y,          cur_z + diff_z);
+    cv::Point3f v2(cur_x + diff_x, cur_y,          cur_z);
+    cv::Point3f v3(cur_x,          cur_y,          cur_z);
+    cv::Point3f v4(cur_x,          cur_y + diff_y, cur_z + diff_z);
+    cv::Point3f v5(cur_x + diff_x, cur_y + diff_y, cur_z + diff_z);
+    cv::Point3f v6(cur_x + diff_x, cur_y + diff_y, cur_z);
+    cv::Point3f v7(cur_x,          cur_y + diff_y, cur_z);
 
     voxel.vertices.push_back(v0);
     voxel.vertices.push_back(v1);
@@ -106,9 +106,9 @@ void init_voxel_vertices(PointCloud pointcloud, Voxel &voxel,
     }
 }
 
-void divide_into_six_triangles(Voxel cur_voxel, std::vector<Tetrahedron> cur_six_tetrahedrons)
+void divide_into_six_triangles(Voxel cur_voxel, std::vector<Tetrahedron> &cur_six_tetrahedrons)
 {
-    // Tetrahedron 1 (v3, v4, v5, v7) => p0 = v3 / p1 = v7 / p2 = v4 / p3 = v5
+    // Tetrahedron 1 (v3, v4, v5, v7) => p0 = v3 / p1 = v4 / p2 = v5 / p3 = v7
     // Tetrahedron 2 (v3, v5, v6, v7) => p0 = v3 / p1 = v7 / p2 = v5 / p3 = v6
     // Tetrahedron 3 (v0, v3, v4, v5) => p0 = v3 / p1 = v5 / p2 = v4 / p3 = v0
     // Tetrahedron 4 (v0, v1, v3, v5) => p0 = v5 / p1 = v1 / p2 = v0 / p3 = v3
@@ -118,12 +118,12 @@ void divide_into_six_triangles(Voxel cur_voxel, std::vector<Tetrahedron> cur_six
     Tetrahedron t1;
     t1.vertices.push_back(cur_voxel.vertices[3]);
     t1.density.push_back(cur_voxel.density[3]);
-    t1.vertices.push_back(cur_voxel.vertices[7]);
-    t1.density.push_back(cur_voxel.density[7]);
     t1.vertices.push_back(cur_voxel.vertices[4]);
     t1.density.push_back(cur_voxel.density[4]);
     t1.vertices.push_back(cur_voxel.vertices[5]);
     t1.density.push_back(cur_voxel.density[5]);
+    t1.vertices.push_back(cur_voxel.vertices[7]);
+    t1.density.push_back(cur_voxel.density[7]);
     cur_six_tetrahedrons.push_back(t1);
 
     Tetrahedron t2;
@@ -182,7 +182,7 @@ void divide_into_six_triangles(Voxel cur_voxel, std::vector<Tetrahedron> cur_six
     cur_six_tetrahedrons.push_back(t6);
 }
 
-void get_vertice_density(std::vector<Tetrahedron> cur_six_tetrahedrons, std::vector<std::array<int, 6>> cur_six_edges_rule)
+void get_vertice_density(std::vector<Tetrahedron> cur_six_tetrahedrons, std::vector<std::array<int, 6>> &cur_six_edges_rule)
 {
     for(int t = 0; t < cur_six_tetrahedrons.size(); t++)
     {
@@ -240,7 +240,7 @@ void get_vertice_density(std::vector<Tetrahedron> cur_six_tetrahedrons, std::vec
     }
 }
 
-void make_triangle(std::vector<Triangle> triangles, std::vector<Tetrahedron> cur_six_tetrahedrons, std::vector<std::array<int, 6>> cur_six_edges_rule)
+void make_triangle(std::vector<Triangle> &triangles, std::vector<Tetrahedron> cur_six_tetrahedrons, std::vector<std::array<int, 6>> cur_six_edges_rule)
 {
     for(int t = 0; t < cur_six_tetrahedrons.size(); t++)
     {
@@ -300,7 +300,6 @@ void make_triangle(std::vector<Triangle> triangles, std::vector<Tetrahedron> cur
             tri2.vertices.push_back(p12);
             tri2.vertices.push_back(p23);
             triangles.push_back(tri2);
-
         }
         else if(cur_six_edges_rule[t] == std::array<int, 6>{1, 1, 0, 0, 1, 1})
         {

@@ -8,9 +8,9 @@
 #define GRID_MAX 50
 
 // How many want to make Voxel?
-#define NUM_VOXEL 50
+#define NUM_VOXEL 200
 
 // Set ISOVALUE
-#define ISOVALUE -0.5
+#define ISOVALUE 0.5
 
 #endif

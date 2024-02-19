@@ -41,6 +41,13 @@ int main(int argc, char* argv[])
     if(READ_FILE)
         cal_voxel_size(min_x, min_y, min_z, max_x, max_y, max_z, voxel_dx, voxel_dy, voxel_dz);
 
+    if(voxel_dx == 0)
+        voxel_dx = 1;
+    if(voxel_dy == 0)
+        voxel_dy = 1;
+    if(voxel_dz == 0)
+        voxel_dz = 1;
+
     auto end_cal_voxel_size = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> cal_voxel_size_duration = end_cal_voxel_size - start_cal_voxel_size;
     std::cout << "Voxel Size Calculation Time: " << cal_voxel_size_duration.count() << " ms" << std::endl;
