@@ -143,10 +143,10 @@ Voxel Size Calculation Time:
          </tr> 
          <tr>
             <td> 200 </td>
-            <td> - </td>
+            <td> 183000 </td>
             <td> 10.3349 ms </td>
             <td> 0.640087 ms </td>
-            <td> - </td>
+            <td> 303081 ms </td>
          </tr>
       </table>
 
